@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Rebuttal of ICLR2027-Paper26335: The Next Step in 3D Generation Post-Training.">
+  <meta name="theme-color" content="#ffffff">
+  <title>Rebuttal of ICLR2027-Paper26335: The Next Step in 3D Generation Post-Training</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; color: #363636; background: #fff; font-family: "Noto Sans", Arial, sans-serif; line-height: 1.5; }
+    button { font: inherit; }
+    .page-width { width: min(1080px, calc(100% - 40px)); margin: 0 auto; }
+    .hero { padding: 36px 0 8px; text-align: center; }
+    .publication-title { margin: 0; font: 600 clamp(27px, 3.8vw, 42px)/1.2 "Google Sans", Arial, sans-serif; letter-spacing: -.025em; }
+    .publication-title span { font-weight: 500; }
+    .gallery-section { padding: 30px 0 56px; }
+    .section-heading { margin: 0 0 18px; text-align: center; }
+    .section-heading h2 { margin: 0; font: 600 32px/1.25 "Google Sans", Arial, sans-serif; }
+    .section-heading h3 { margin: 0; font: 600 21px/1.25 "Google Sans", Arial, sans-serif; }
+    .navigation-content { max-width: 800px; margin: 0 auto; }
+    .navigation-content p { margin: 20px 0 6px; }
+    .navigation-content ul { margin: 0; padding-left: 22px; }
+    .gallery-toolbar { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+    .toolbar-label { margin-bottom: 7px; color: #555; font-size: 13px; font-weight: 600; }
+    .toolbar-group { display: flex; flex-wrap: wrap; gap: 6px; }
+    .segmented button { padding: 7px 11px; border: 1px solid #d5d5d5; border-radius: 4px; color: #444; background: #fff; cursor: pointer; font-size: 13px; }
+    .segmented button:hover, .segmented button:focus-visible { border-color: #777; }
+    .segmented button[aria-pressed="true"] { border-color: #363636; color: #fff; background: #363636; }
+    .comparison-columns, .comparison-pair { display: grid; grid-template-columns: minmax(150px, .62fr) repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0 0 8px; }
+    .comparison-columns { color: #555; font-size: 12px; font-weight: 600; text-align: center; }
+    .comparison-columns span:first-child { text-align: left; }
+    .comparison-columns span:last-child { color: #363636; }
+    .qual-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    .t3bench-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .t3bench-case { min-width: 0; padding: 14px; border: 1px solid #ddd; border-radius: 4px; }
+    .t3bench-prompt { margin: 0 0 12px; font-size: 15px; font-weight: 600; }
+    .t3bench-models { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .t3bench-model { min-width: 0; margin: 0; }
+    .t3bench-model figcaption { margin-bottom: 5px; font-size: 12px; font-weight: 600; text-align: center; }
+    .t3bench-model video { display: block; width: 100%; aspect-ratio: 1; border: 1px solid #ddd; border-radius: 4px; background: #fff; object-fit: contain; }
+    .input-condition { display: grid; min-height: 360px; place-items: center; padding: 20px; overflow: hidden; border: 1px solid #ddd; border-radius: 4px; color: #363636; background: #fff; }
+    .input-condition.text { text-align: center; font-size: 15px; }
+    .input-condition.image img { display: block; width: 100%; max-height: 320px; object-fit: contain; }
+    .figure-grid { display: grid; grid-template-columns: .45fr 1fr; gap: 16px; container-type: inline-size; }
+    .figure-grid + .figure-grid { margin-top: 28px; }
+    .figure-grid figure { min-width: 0; margin: 0; }
+    .figure-grid figcaption { margin-bottom: 8px; font-size: 14px; font-weight: 600; text-align: center; }
+    .figure-grid img { display: block; width: 100%; height: calc(14.26cqw - .69px); border: 1px solid #ddd; border-radius: 4px; background: #fff; object-fit: contain; }
+    .figure-grid.robot-example img { height: calc(16.60cqw - 1.14px); }
+    .figure-grid.output-larger { grid-template-columns: 12.8% 1fr; }
+    .figure-grid.output-larger > figure:first-child img { height: auto; }
+    .figure-grid.output-larger > figure:last-child img { height: auto; }
+    .figure-grid.output-larger.robot-example { grid-template-columns: 14.9% 1fr; }
+    .viewer-shell { position: relative; overflow: hidden; border: 1px solid #ddd; border-radius: 4px; background: #fff; }
+    .viewer-host { position: relative; width: 100%; height: 360px; overflow: hidden; background: #fff; }
+    .viewer-host canvas { display: block; width: 100% !important; height: 100% !important; }
+    .viewer-loading { position: absolute; top: 10px; left: 10px; z-index: 3; padding: 5px 8px; border: 1px solid #ddd; border-radius: 4px; color: #444; background: rgba(255,255,255,.92); font-size: 12px; }
+    .viewer-host.is-ready .viewer-loading { display: none; }
+    .viewer-host.is-error .viewer-loading { color: #b42318; border-color: #e2b4b0; }
+    .viewer-tip { position: absolute; right: 9px; bottom: 9px; z-index: 3; padding: 5px 8px; border-radius: 4px; color: #444; background: rgba(255,255,255,.9); font-size: 11px; pointer-events: none; }
+    :focus-visible { outline: 2px solid #485fc7; outline-offset: 2px; }
+    @media (max-width: 700px) {
+      .page-width { width: min(100% - 24px, 1080px); }
+      .hero { padding-top: 24px; }
+      .gallery-section { padding-top: 24px; }
+      .comparison-columns, .comparison-pair { grid-template-columns: minmax(90px, .48fr) repeat(2, minmax(0, 1fr)); gap: 7px; }
+      .input-condition { min-height: 260px; padding: 10px; font-size: 13px; }
+      .input-condition.image img { max-height: 220px; }
+      .viewer-host { height: 260px; }
+      .comparison-columns { font-size: 10px; }
+      .gallery-toolbar { align-items: start; }
+      .t3bench-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 420px) {
+      .publication-title { font-size: 26px; }
+      .section-heading h2 { font-size: 24px; }
+      .section-heading h3 { font-size: 19px; }
+      .input-condition { min-height: 220px; padding: 6px; }
+      .viewer-host { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="page-width">
+      <h1 class="publication-title">Rebuttal of ICLR2027-Paper26335<br><span>The Next Step in 3D Generation Post-Training</span></h1>
+    </div>
+  </header>
+
+  <main class="page-width">
+    <section class="gallery-section" id="navigation">
+      <div class="section-heading"><h2>Navigation</h2></div>
+      <nav class="navigation-content" aria-label="Reviewer navigation and table of contents">
+        <ul>
+          <li>For Reviewer <strong>uXfy</strong>, please refer to our official comments in <a href="https://openreview.net/forum?id=oyutnIaJyL" target="_blank" rel="noopener noreferrer">OpenReview</a> for quantitative results.</li>
+          <li>For Reviewer <strong>mz3S</strong>, please refer to <a href="#t3bench-qualitative">Section B</a>.</li>
+          <li>For Reviewer <strong>8dLK</strong>, please refer to <a href="#figure-5-highlight">Section A</a> and <a href="#qualitative">Section C</a>.</li>
+        </ul>
+        <p><strong>Table of Contents</strong></p>
+        <ul>
+          <li><a href="#figure-5-highlight">Section A. High-resolution renderings with highlighted region for Figure 5</a></li>
+          <li><a href="#t3bench-qualitative">Section B. T3Bench qualitative results</a></li>
+          <li><a href="#qualitative">Section C. Interactive 3DGS viewer</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <section class="gallery-section" id="figure-5-highlight">
+      <div class="section-heading"><h2>A. High-resolution renderings with highlighted region for Figure 5</h2></div>
+      <div class="figure-grid output-larger">
+        <figure>
+          <figcaption>Image prompt</figcaption>
+          <img src="./assets/dragon.png" alt="Dragon image prompt" loading="lazy">
+        </figure>
+        <figure>
+          <figcaption>Output</figcaption>
+          <img src="./assets/dragon_highlight.png" alt="High-resolution rendering with highlighted region" loading="lazy">
+        </figure>
+      </div>
+      <div class="figure-grid robot-example output-larger">
+        <figure>
+          <figcaption>Image prompt</figcaption>
+          <img src="./assets/robot.png" alt="Robot image prompt" loading="lazy">
+        </figure>
+        <figure>
+          <figcaption>Output</figcaption>
+          <img src="./assets/robot_highlight.png" alt="High-resolution robot rendering with highlighted region" loading="lazy">
+        </figure>
+      </div>
+    </section>
+
+    <section class="gallery-section" id="t3bench-qualitative">
+      <div class="section-heading"><h2>B. T3Bench qualitative results</h2></div>
+      <div class="t3bench-grid">
+        <article class="t3bench-case">
+          <h3 class="t3bench-prompt">A cactus with pink flowers</h3>
+          <div class="t3bench-models">
+            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A cactus with pink flowers"><source src="./assets/A_cactus_with_pink_flowers_base.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A cactus with pink flowers"><source src="./assets/A_cactus_with_pink_flowers.mp4" type="video/mp4"></video></figure>
+          </div>
+        </article>
+        <article class="t3bench-case">
+          <h3 class="t3bench-prompt">A castle-shaped sandcastle</h3>
+          <div class="t3bench-models">
+            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A castle-shaped sandcastle"><source src="./assets/A_castle-shaped_sandcastle_base.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A castle-shaped sandcastle"><source src="./assets/A_castle-shaped_sandcastle.mp4" type="video/mp4"></video></figure>
+          </div>
+        </article>
+        <article class="t3bench-case">
+          <h3 class="t3bench-prompt">A chipped white coffee mug</h3>
+          <div class="t3bench-models">
+            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A chipped white coffee mug"><source src="./assets/A_chipped_white_coffee_mug_base.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A chipped white coffee mug"><source src="./assets/A_chipped_white_coffee_mug.mp4" type="video/mp4"></video></figure>
+          </div>
+        </article>
+        <article class="t3bench-case">
+          <h3 class="t3bench-prompt">A classic leatherette radio with dials</h3>
+          <div class="t3bench-models">
+            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A classic leatherette radio with dials"><source src="./assets/A_classic_leatherette_radio_with_dials_base.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A classic leatherette radio with dials"><source src="./assets/A_classic_leatherette_radio_with_dials.mp4" type="video/mp4"></video></figure>
+          </div>
+        </article>
+        <article class="t3bench-case">
+          <h3 class="t3bench-prompt">A pair of polka-dotted sneakers</h3>
+          <div class="t3bench-models">
+            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A pair of polka-dotted sneakers"><source src="./assets/A_pair_of_polka-dotted_sneakers_base.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A pair of polka-dotted sneakers"><source src="./assets/A_pair_of_polka-dotted_sneakers.mp4" type="video/mp4"></video></figure>
+          </div>
+        </article>
+        <article class="t3bench-case">
+          <h3 class="t3bench-prompt">A pair of worn-in blue jeans</h3>
+          <div class="t3bench-models">
+            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A pair of worn-in blue jeans"><source src="./assets/A_pair_of_worn-in_blue_jeans_base.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A pair of worn-in blue jeans"><source src="./assets/A_pair_of_worn-in_blue_jeans.mp4" type="video/mp4"></video></figure>
+          </div>
+        </article>
+        <article class="t3bench-case">
+          <h3 class="t3bench-prompt">A silver mirror with ornate detailing</h3>
+          <div class="t3bench-models">
+            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A silver mirror with ornate detailing"><source src="./assets/A_silver_mirror_with_ornate_detailing_base.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A silver mirror with ornate detailing"><source src="./assets/A_silver_mirror_with_ornate_detailing.mp4" type="video/mp4"></video></figure>
+          </div>
+        </article>
+        <article class="t3bench-case">
+          <h3 class="t3bench-prompt">A sleek stainless steel teapot</h3>
+          <div class="t3bench-models">
+            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A sleek stainless steel teapot"><source src="./assets/A_sleek_stainless_steel_teapot_base.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A sleek stainless steel teapot"><source src="./assets/A_sleek_stainless_steel_teapot.mp4" type="video/mp4"></video></figure>
+          </div>
+        </article>
+        <article class="t3bench-case">
+          <h3 class="t3bench-prompt">A sparkling crystal chandelier</h3>
+          <div class="t3bench-models">
+            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A sparkling crystal chandelier"><source src="./assets/A_sparkling_crystal_chandelier_base.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A sparkling crystal chandelier"><source src="./assets/A_sparkling_crystal_chandelier.mp4" type="video/mp4"></video></figure>
+          </div>
+        </article>
+        <article class="t3bench-case">
+          <h3 class="t3bench-prompt">A steaming mug of hot chocolate with whipped cream</h3>
+          <div class="t3bench-models">
+            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A steaming mug of hot chocolate with whipped cream"><source src="./assets/A_steaming_mug_of_hot_chocolate_with_whipped_cream_base.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A steaming mug of hot chocolate with whipped cream"><source src="./assets/A_steaming_mug_of_hot_chocolate_with_whipped_cream.mp4" type="video/mp4"></video></figure>
+          </div>
+        </article>
+        <article class="t3bench-case">
+          <h3 class="t3bench-prompt">A vintage porcelain doll with a frilly dress</h3>
+          <div class="t3bench-models">
+            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A vintage porcelain doll with a frilly dress"><source src="./assets/A_vintage_porcelain_doll_with_a_frilly_dress_base.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A vintage porcelain doll with a frilly dress"><source src="./assets/A_vintage_porcelain_doll_with_a_frilly_dress.mp4" type="video/mp4"></video></figure>
+          </div>
+        </article>
+        <article class="t3bench-case">
+          <h3 class="t3bench-prompt">A well-loved stuffed teddy bear</h3>
+          <div class="t3bench-models">
+            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A well-loved stuffed teddy bear"><source src="./assets/A_well-loved_stuffed_teddy_bear_base.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A well-loved stuffed teddy bear"><source src="./assets/A_well-loved_stuffed_teddy_bear.mp4" type="video/mp4"></video></figure>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="gallery-section" id="qualitative">
+      <div class="section-heading"><h2>C. Interactive 3DGS viewer</h2></div>
+      <div class="section-heading"><h3>Text-Conditioned Results</h3></div>
+      <div class="gallery-shell">
+        <div class="gallery-toolbar">
+          <div>
+            <div class="toolbar-label">Text conditioning / model</div>
+            <div class="toolbar-group segmented" data-gallery-controls="text-model" role="group" aria-label="Text model">
+              <button type="button" data-value="TIGON" aria-pressed="true">TIGON</button>
+              <button type="button" data-value="TRELLIS" aria-pressed="false">TRELLIS</button>
+            </div>
+          </div>
+          <div>
+            <div class="toolbar-label">Classifier-free guidance</div>
+            <div class="toolbar-group segmented" data-gallery-controls="text-cfg" role="group" aria-label="Text CFG">
+              <button type="button" data-value="off" aria-pressed="true">CFG off</button>
+              <button type="button" data-value="on" aria-pressed="false">CFG on</button>
+            </div>
+          </div>
+        </div>
+        <div class="comparison-columns"><span>Input condition</span><span>Base model</span><span>Post-trained</span></div>
+        <div class="qual-grid" id="text-gallery" data-gallery="text" data-example-count="4"></div>
+        <noscript><p>Enable JavaScript to load the 3D viewers.</p></noscript>
+      </div>
+
+      <div class="section-heading" style="margin-top: 38px"><h3>Image-Conditioned Results</h3></div>
+      <div class="gallery-shell">
+        <div class="gallery-toolbar">
+          <div>
+            <div class="toolbar-label">Image conditioning / model</div>
+            <div class="toolbar-group segmented" data-gallery-controls="image-model" role="group" aria-label="Image model">
+              <button type="button" data-value="TripoSplat" aria-pressed="true">TripoSplat</button>
+              <button type="button" data-value="TIGON" aria-pressed="false">TIGON</button>
+              <button type="button" data-value="TRELLIS" aria-pressed="false">TRELLIS</button>
+            </div>
+          </div>
+          <div>
+            <div class="toolbar-label">Classifier-free guidance</div>
+            <div class="toolbar-group segmented" data-gallery-controls="image-cfg" role="group" aria-label="Image CFG">
+              <button type="button" data-value="off" aria-pressed="true">CFG off</button>
+              <button type="button" data-value="on" aria-pressed="false">CFG on</button>
+            </div>
+          </div>
+        </div>
+        <div class="comparison-columns"><span>Input condition</span><span>Base model</span><span>Post-trained</span></div>
+        <div class="qual-grid" id="image-gallery" data-gallery="image" data-example-count="4"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module">
+    const QUALITATIVE_CASES = {
+      text: {
+        TRELLIS: {
+          // TEXT-CONDITIONING · TRELLIS · CFG ON
+          on: [
+            // Example 1
+            { caption: "Weathered rectangular structure with flat top, mixed materials, and arched windows.", basePath: "./assets/wearthered_base_cfg.ksplat", postPath: "./assets/wearthered_cfg.ksplat" },
+            // Example 2
+            { caption: "White 1960s sports car with a sharp-edged roofline.", basePath: "./assets/white_car_base_cfg.ksplat", postPath: "./assets/white_car_cfg.ksplat" },
+            // Example 3
+            { caption: "Character in armor, blue tunic, brown skirt, boots, and with a staff.", basePath: "./assets/blue_armor_base_cfg.ksplat", postPath: "./assets/blue_armor_cfg.ksplat" },
+            // Example 4
+            { caption: "Property with buildings, pool, hot tub, court, pathways, and tent.", basePath: "./assets/property_base_cfg.ksplat", postPath: "./assets/property_cfg.ksplat" }
+          ],
+          // TEXT-CONDITIONING · TRELLIS · CFG OFF
+          off: [
+            // Example 1
+            { caption: "Armored human figure with yellow accents.", basePath: "./assets/yellow_human_base_nocfg.ksplat", postPath: "./assets/yellow_human_nocfg.ksplat" },
+            // Example 2
+            { caption: "Elderly man in suit, sash, moving.", basePath: "./assets/elderly_man_base_nocfg.ksplat", postPath: "./assets/elderly_man_nocfg.ksplat" },
+            // Example 3
+            { caption: "International Space Station model with central truss and modules.", basePath: "./assets/space_station_base_nocfg.ksplat", postPath: "./assets/space_station_nocfg.ksplat" },
+            // Example 4
+            { caption: "White suited humanoid, gray armor, wired back panel, belt.", basePath: "./assets/white_human_base_nocfg.ksplat", postPath: "./assets/white_human_nocfg.ksplat" }
+          ]
+        },
+        TIGON: {
+          // TEXT-CONDITIONING · TIGON · CFG ON
+          on: [
+            // Example 1
+            { caption: "Robot with blue head, red chest, and grey-blue arms and legs.", basePath: "./assets/robot_base_cfg.ksplat", postPath: "./assets/robot_cfg.ksplat" },
+            // Example 2
+            { caption: "Pink peony, yellow stamens, green sepal, veiny texture.", basePath: "./assets/flower_base_cfg.ksplat", postPath: "./assets/flower_cfg.ksplat" },
+            // Example 3
+            { caption: "Robot with firearm on grass-topped island.", basePath: "./assets/grass_base_cfg.ksplat", postPath: "./assets/grass_cfg.ksplat" },
+            // Example 4
+            { caption: "Apartment with living space, bathroom, kitchen, and balcony.", basePath: "./assets/apartment_base_cfg.ksplat", postPath: "./assets/apartment_cfg.ksplat" }
+          ],
+          // TEXT-CONDITIONING · TIGON · CFG OFF
+          off: [
+            // Example 1
+            { caption: "Robot with blue head, red chest, and grey-blue arms and legs.", basePath: "./assets/robot_base_nocfg.ksplat", postPath: "./assets/robot_nocfg.ksplat" },
+            // Example 2
+            { caption: "Marble bust with cloth draping, off-white.", basePath: "./assets/marble_base_nocfg.ksplat", postPath: "./assets/marble_nocfg.ksplat" },
+            // Example 3
+            { caption: "Soldier figurine with hat, uniform.", basePath: "./assets/soldier_base_nocfg.ksplat", postPath: "./assets/soldier_nocfg.ksplat" },
+            // Example 4
+            { caption: "Modern house, flat roof, garage, columns, windows, balcony, rooftop, garden.", basePath: "./assets/house_base_nocfg.ksplat", postPath: "./assets/house_nocfg.ksplat" }
+          ]
+        }
+      },
+      image: {
+        TRELLIS: {
+          // IMAGE-CONDITIONING · TRELLIS · CFG ON
+          on: [
+            // Example 1
+            { inputPath: "./assets/parrot.png", basePath: "./assets/parrot_base_cfg.ksplat", postPath: "./assets/parrot_cfg.ksplat" },
+            // Example 2
+            { inputPath: "./assets/orange_dinosaur.png", basePath: "./assets/orange_dinosaur_base_cfg.ksplat", postPath: "./assets/orange_dinosaur_cfg.ksplat" },
+            // Example 3
+            { inputPath: "./assets/cat.png", basePath: "./assets/cat_base_cfg.ksplat", postPath: "./assets/cat_cfg.ksplat" },
+            // Example 4
+            { inputPath: "./assets/pig.png", basePath: "./assets/pig_base_cfg.ksplat", postPath: "./assets/pig_cfg.ksplat" }
+          ],
+          // IMAGE-CONDITIONING · TRELLIS · CFG OFF
+          off: [
+            // Example 1
+            { inputPath: "./assets/green_grape.png", basePath: "./assets/green_grape_base_nocfg.ksplat", postPath: "./assets/green_grape_nocfg.ksplat" },
+            // Example 2
+            { inputPath: "./assets/grape.png", basePath: "./assets/grape_base_nocfg.ksplat", postPath: "./assets/grape_nocfg.ksplat" },
+            // Example 3
+            { inputPath: "./assets/warrior.png", basePath: "./assets/warrior_base_nocfg.ksplat", postPath: "./assets/warrior_nocfg.ksplat" },
+            // Example 4
+            { inputPath: "./assets/monster.png", basePath: "./assets/monster_base_nocfg.ksplat", postPath: "./assets/monster_nocfg.ksplat" }
+          ]
+        },
+        TIGON: {
+          // IMAGE-CONDITIONING · TIGON · CFG ON
+          on: [
+            // Example 1
+            { inputPath: "./assets/horse.png", basePath: "./assets/image_horse_base_cfg.ksplat", postPath: "./assets/image_horse_cfg.ksplat" },
+            // Example 2
+            { inputPath: "./assets/dragon.png", basePath: "./assets/image_dragon_base_cfg.ksplat", postPath: "./assets/image_dragon_cfg.ksplat" },
+            // Example 3
+            { inputPath: "./assets/robot.png", basePath: "./assets/image_robot_base_cfg.ksplat", postPath: "./assets/image_robot_cfg.ksplat" },
+            // Example 4
+            { inputPath: "./assets/soldier.png", basePath: "./assets/image_soldier_base_cfg.ksplat", postPath: "./assets/image_soldier_cfg.ksplat" }
+          ],
+          // IMAGE-CONDITIONING · TIGON · CFG OFF
+          off: [
+            // Example 1
+            { inputPath: "./assets/flower.png", basePath: "./assets/image_flower_base_nocfg.ksplat", postPath: "./assets/image_flower_nocfg.ksplat" },
+            // Example 2
+            { inputPath: "./assets/dog.png", basePath: "./assets/image_dog_base_nocfg.ksplat", postPath: "./assets/image_dog_nocfg.ksplat" },
+            // Example 3
+            { inputPath: "./assets/deer.png", basePath: "./assets/image_deer_base_nocfg.ksplat", postPath: "./assets/image_deer_nocfg.ksplat" },
+            // Example 4
+            { inputPath: "./assets/cup.png", basePath: "./assets/image_cup_base_nocfg.ksplat", postPath: "./assets/image_cup_nocfg.ksplat" }
+          ]
+        },
+        TripoSplat: {
+          // IMAGE-CONDITIONING · TRIPOSPLAT · CFG ON
+          on: [
+            // Example 1
+            { inputPath: "./assets/dinosaur2.png", basePath: "./assets/dinosaur2_base_cfg.ksplat", postPath: "./assets/dinosaur2_cfg.ksplat" },
+            // Example 2
+            { inputPath: "./assets/car.png", basePath: "./assets/car_base_cfg.ksplat", postPath: "./assets/car_cfg.ksplat" },
+            // Example 3
+            { inputPath: "./assets/icecream.png", basePath: "./assets/icecream_base_cfg.ksplat", postPath: "./assets/icecream_cfg.ksplat" },
+            // Example 4
+            { inputPath: "./assets/robot.png", basePath: "./assets/tripo_robot_base_cfg.ksplat", postPath: "./assets/tripo_robot_cfg.ksplat" }
+          ],
+          // IMAGE-CONDITIONING · TRIPOSPLAT · CFG OFF
+          off: [
+            // Example 1
+            { inputPath: "./assets/dinosaur.png", basePath: "./assets/dinosaur_base_nocfg.ksplat", postPath: "./assets/dinosaur_nocfg.ksplat" },
+            // Example 2
+            { inputPath: "./assets/flower_ball.png", basePath: "./assets/flower_ball_base_nocfg.ksplat", postPath: "./assets/flower_ball_nocfg.ksplat" },
+            // Example 3
+            { inputPath: "./assets/flower_vase.png", basePath: "./assets/flower_vase_base_nocfg.ksplat", postPath: "./assets/flower_vase_nocfg.ksplat" },
+            // Example 4
+            { inputPath: "./assets/rainbow_cup.png", basePath: "./assets/rainbow_cup_base_nocfg.ksplat", postPath: "./assets/rainbow_cup_nocfg.ksplat" }
+          ]
+        }
+      }
+    };
+    const viewerModulePromise = import("https://cdn.jsdelivr.net/npm/@mkkellogg/gaussian-splats-3d@0.4.7/build/gaussian-splats-3d.module.js").catch(() => null);
+    const viewerInstances = new WeakMap();
+    const viewerLoadQueue = [];
+    const maxConcurrentViewerLoads = 2;
+    let activeViewerLoads = 0;
+    const viewerObserver = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { viewerObserver.unobserve(entry.target); queueViewerLoad(entry.target); } }), { rootMargin: "80px 0px" });
+
+    function queueViewerLoad(host) {
+      if (host.dataset.loaded === "true" || host.dataset.loading === "true") return;
+      host.dataset.loading = "true";
+      viewerLoadQueue.push(host);
+      drainViewerLoadQueue();
+    }
+
+    function drainViewerLoadQueue() {
+      while (activeViewerLoads < maxConcurrentViewerLoads && viewerLoadQueue.length) {
+        const host = viewerLoadQueue.shift();
+        if (!host.isConnected) { delete host.dataset.loading; continue; }
+        activeViewerLoads += 1;
+        loadViewer(host).finally(() => { activeViewerLoads -= 1; drainViewerLoadQueue(); });
+      }
+    }
+
+    async function loadViewer(host) {
+      if (host.dataset.loaded === "true") return;
+      try {
+        const module = await viewerModulePromise;
+        if (!module) { host.classList.add("is-error"); host.querySelector(".viewer-loading").textContent = "Viewer CDN unavailable"; return; }
+        const viewer = new module.Viewer({ rootElement: host, cameraUp: [0, -1, 0], initialCameraPosition: [0, 0, 2.4], initialCameraLookAt: [0, 0, 0], ignoreDevicePixelRatio: true, gpuAcceleratedSort: false, sharedMemoryForWorkers: false, useBuiltInControls: true });
+        viewerInstances.set(host, viewer);
+        await viewer.addSplatScene(host.dataset.splatPath, { progressiveLoad: true, showLoadingUI: false, splatAlphaRemovalThreshold: 5 });
+        host.dataset.loaded = "true";
+        viewer.start();
+        host.classList.add("is-ready");
+      } catch (error) { host.classList.add("is-error"); host.querySelector(".viewer-loading").textContent = "Viewer could not load"; }
+      finally { delete host.dataset.loading; }
+    }
+
+    function observeGalleryViewers(gallery) {
+      gallery.querySelectorAll("[data-viewer-host]").forEach((host) => { if (host.dataset.loaded !== "true" && host.dataset.loading !== "true") viewerObserver.observe(host); });
+    }
+
+    function setGalleryViewersRunning(gallery, running) {
+      gallery.querySelectorAll("[data-viewer-host]").forEach((host) => { const viewer = viewerInstances.get(host); if (viewer && host.dataset.loaded === "true") { if (running) viewer.start(); else viewer.stop(); } });
+    }
+
+    function createCard(kind, sample) {
+      const card = document.createElement("article");
+      card.className = "sample-card";
+      const inputMarkup = kind === "image"
+        ? `<div class="input-condition image"><img src="${sample.inputPath}" alt="Image conditioning input"></div>`
+        : `<div class="input-condition text">${sample.caption}</div>`;
+      const viewerMarkup = (path) => `<div class="viewer-shell"><div class="viewer-host" data-viewer-host data-splat-path="${path}"><div class="viewer-loading">Loading KSPLAT…</div><div class="viewer-tip">drag orbit · wheel zoom</div></div></div>`;
+      card.innerHTML = `<div class="comparison-pair"><div>${inputMarkup}</div><div>${viewerMarkup(sample.basePath)}</div><div>${viewerMarkup(sample.postPath)}</div></div>`;
+      return card;
+    }
+
+    const galleryCache = new Map();
+    function makeGallery(kind, model, cfg) {
+      const gallery = document.querySelector(`#${kind}-gallery`);
+      const cacheKey = `${kind}:${model}:${cfg}`;
+      if (gallery.dataset.cacheKey === cacheKey) return;
+      if (gallery.dataset.cacheKey) {
+        setGalleryViewersRunning(gallery, false);
+        galleryCache.set(gallery.dataset.cacheKey, Array.from(gallery.children));
+      }
+      const cachedCards = galleryCache.get(cacheKey);
+      const cards = cachedCards || QUALITATIVE_CASES[kind][model][cfg].map((sample) => createCard(kind, sample));
+      gallery.replaceChildren(...cards);
+      galleryCache.set(cacheKey, cards);
+      gallery.dataset.cacheKey = cacheKey;
+      observeGalleryViewers(gallery);
+      setGalleryViewersRunning(gallery, true);
+    }
+
+    const galleryState = { text: { model: "TIGON", cfg: "off" }, image: { model: "TripoSplat", cfg: "off" } };
+    ["text", "image"].forEach((kind) => {
+      document.querySelectorAll(`[data-gallery-controls^="${kind}-"]`).forEach((group) => {
+        group.addEventListener("click", (event) => {
+          const button = event.target.closest("button[data-value]");
+          if (!button) return;
+          const field = group.dataset.galleryControls.endsWith("model") ? "model" : "cfg";
+          galleryState[kind][field] = button.dataset.value;
+          group.querySelectorAll("button").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+          makeGallery(kind, galleryState[kind].model, galleryState[kind].cfg);
+        });
+      });
+      makeGallery(kind, galleryState[kind].model, galleryState[kind].cfg);
+    });
+  </script>
+</body>
+</html>
