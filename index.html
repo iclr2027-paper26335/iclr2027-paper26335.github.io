@@ -42,11 +42,11 @@
     .qual-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
     .t3bench-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
     .t3bench-case { min-width: 0; padding: 14px; border: 1px solid #ddd; border-radius: 4px; }
-    .t3bench-prompt { margin: 0 0 12px; font-size: 15px; font-weight: 600; }
+    .t3bench-prompt { margin: 0 0 12px; font-size: 15px; font-weight: 600; text-align: center; }
     .t3bench-models { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     .t3bench-model { min-width: 0; margin: 0; }
     .t3bench-model figcaption { margin-bottom: 5px; font-size: 12px; font-weight: 600; text-align: center; }
-    .t3bench-model video { display: block; width: 100%; aspect-ratio: 1; border: 1px solid #ddd; border-radius: 4px; background: #fff; object-fit: contain; }
+    .t3bench-model img { display: block; width: 100%; aspect-ratio: 1; border: 1px solid #ddd; border-radius: 4px; background: #fff; object-fit: contain; }
     .input-condition { display: grid; min-height: 360px; place-items: center; padding: 20px; overflow: hidden; border: 1px solid #ddd; border-radius: 4px; color: #363636; background: #fff; }
     .input-condition.text { text-align: center; font-size: 15px; }
     .input-condition.image img { display: block; width: 100%; max-height: 320px; object-fit: contain; }
@@ -144,85 +144,85 @@
         <article class="t3bench-case">
           <h3 class="t3bench-prompt">A cactus with pink flowers</h3>
           <div class="t3bench-models">
-            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A cactus with pink flowers"><source src="./assets/A_cactus_with_pink_flowers_base.mp4" type="video/mp4"></video></figure>
-            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A cactus with pink flowers"><source src="./assets/A_cactus_with_pink_flowers.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>TIGON</figcaption><img src="./assets/A_cactus_with_pink_flowers_base.gif" alt="TIGON result: A cactus with pink flowers" loading="lazy"></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained TIGON</figcaption><img src="./assets/A_cactus_with_pink_flowers.gif" alt="Post-trained TIGON result: A cactus with pink flowers" loading="lazy"></figure>
           </div>
         </article>
         <article class="t3bench-case">
           <h3 class="t3bench-prompt">A castle-shaped sandcastle</h3>
           <div class="t3bench-models">
-            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A castle-shaped sandcastle"><source src="./assets/A_castle-shaped_sandcastle_base.mp4" type="video/mp4"></video></figure>
-            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A castle-shaped sandcastle"><source src="./assets/A_castle-shaped_sandcastle.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>TIGON</figcaption><img src="./assets/A_castle-shaped_sandcastle_base.gif" alt="TIGON result: A castle-shaped sandcastle" loading="lazy"></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained TIGON</figcaption><img src="./assets/A_castle-shaped_sandcastle.gif" alt="Post-trained TIGON result: A castle-shaped sandcastle" loading="lazy"></figure>
           </div>
         </article>
         <article class="t3bench-case">
           <h3 class="t3bench-prompt">A chipped white coffee mug</h3>
           <div class="t3bench-models">
-            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A chipped white coffee mug"><source src="./assets/A_chipped_white_coffee_mug_base.mp4" type="video/mp4"></video></figure>
-            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A chipped white coffee mug"><source src="./assets/A_chipped_white_coffee_mug.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>TIGON</figcaption><img src="./assets/A_chipped_white_coffee_mug_base.gif" alt="TIGON result: A chipped white coffee mug" loading="lazy"></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained TIGON</figcaption><img src="./assets/A_chipped_white_coffee_mug.gif" alt="Post-trained TIGON result: A chipped white coffee mug" loading="lazy"></figure>
           </div>
         </article>
         <article class="t3bench-case">
           <h3 class="t3bench-prompt">A classic leatherette radio with dials</h3>
           <div class="t3bench-models">
-            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A classic leatherette radio with dials"><source src="./assets/A_classic_leatherette_radio_with_dials_base.mp4" type="video/mp4"></video></figure>
-            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A classic leatherette radio with dials"><source src="./assets/A_classic_leatherette_radio_with_dials.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>TIGON</figcaption><img src="./assets/A_classic_leatherette_radio_with_dials_base.gif" alt="TIGON result: A classic leatherette radio with dials" loading="lazy"></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained TIGON</figcaption><img src="./assets/A_classic_leatherette_radio_with_dials.gif" alt="Post-trained TIGON result: A classic leatherette radio with dials" loading="lazy"></figure>
           </div>
         </article>
         <article class="t3bench-case">
           <h3 class="t3bench-prompt">A pair of polka-dotted sneakers</h3>
           <div class="t3bench-models">
-            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A pair of polka-dotted sneakers"><source src="./assets/A_pair_of_polka-dotted_sneakers_base.mp4" type="video/mp4"></video></figure>
-            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A pair of polka-dotted sneakers"><source src="./assets/A_pair_of_polka-dotted_sneakers.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>TIGON</figcaption><img src="./assets/A_pair_of_polka-dotted_sneakers_base.gif" alt="TIGON result: A pair of polka-dotted sneakers" loading="lazy"></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained TIGON</figcaption><img src="./assets/A_pair_of_polka-dotted_sneakers.gif" alt="Post-trained TIGON result: A pair of polka-dotted sneakers" loading="lazy"></figure>
           </div>
         </article>
         <article class="t3bench-case">
           <h3 class="t3bench-prompt">A pair of worn-in blue jeans</h3>
           <div class="t3bench-models">
-            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A pair of worn-in blue jeans"><source src="./assets/A_pair_of_worn-in_blue_jeans_base.mp4" type="video/mp4"></video></figure>
-            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A pair of worn-in blue jeans"><source src="./assets/A_pair_of_worn-in_blue_jeans.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>TIGON</figcaption><img src="./assets/A_pair_of_worn-in_blue_jeans_base.gif" alt="TIGON result: A pair of worn-in blue jeans" loading="lazy"></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained TIGON</figcaption><img src="./assets/A_pair_of_worn-in_blue_jeans.gif" alt="Post-trained TIGON result: A pair of worn-in blue jeans" loading="lazy"></figure>
           </div>
         </article>
         <article class="t3bench-case">
           <h3 class="t3bench-prompt">A silver mirror with ornate detailing</h3>
           <div class="t3bench-models">
-            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A silver mirror with ornate detailing"><source src="./assets/A_silver_mirror_with_ornate_detailing_base.mp4" type="video/mp4"></video></figure>
-            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A silver mirror with ornate detailing"><source src="./assets/A_silver_mirror_with_ornate_detailing.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>TIGON</figcaption><img src="./assets/A_silver_mirror_with_ornate_detailing_base.gif" alt="TIGON result: A silver mirror with ornate detailing" loading="lazy"></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained TIGON</figcaption><img src="./assets/A_silver_mirror_with_ornate_detailing.gif" alt="Post-trained TIGON result: A silver mirror with ornate detailing" loading="lazy"></figure>
           </div>
         </article>
         <article class="t3bench-case">
           <h3 class="t3bench-prompt">A sleek stainless steel teapot</h3>
           <div class="t3bench-models">
-            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A sleek stainless steel teapot"><source src="./assets/A_sleek_stainless_steel_teapot_base.mp4" type="video/mp4"></video></figure>
-            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A sleek stainless steel teapot"><source src="./assets/A_sleek_stainless_steel_teapot.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>TIGON</figcaption><img src="./assets/A_sleek_stainless_steel_teapot_base.gif" alt="TIGON result: A sleek stainless steel teapot" loading="lazy"></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained TIGON</figcaption><img src="./assets/A_sleek_stainless_steel_teapot.gif" alt="Post-trained TIGON result: A sleek stainless steel teapot" loading="lazy"></figure>
           </div>
         </article>
         <article class="t3bench-case">
           <h3 class="t3bench-prompt">A sparkling crystal chandelier</h3>
           <div class="t3bench-models">
-            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A sparkling crystal chandelier"><source src="./assets/A_sparkling_crystal_chandelier_base.mp4" type="video/mp4"></video></figure>
-            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A sparkling crystal chandelier"><source src="./assets/A_sparkling_crystal_chandelier.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>TIGON</figcaption><img src="./assets/A_sparkling_crystal_chandelier_base.gif" alt="TIGON result: A sparkling crystal chandelier" loading="lazy"></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained TIGON</figcaption><img src="./assets/A_sparkling_crystal_chandelier.gif" alt="Post-trained TIGON result: A sparkling crystal chandelier" loading="lazy"></figure>
           </div>
         </article>
         <article class="t3bench-case">
           <h3 class="t3bench-prompt">A steaming mug of hot chocolate with whipped cream</h3>
           <div class="t3bench-models">
-            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A steaming mug of hot chocolate with whipped cream"><source src="./assets/A_steaming_mug_of_hot_chocolate_with_whipped_cream_base.mp4" type="video/mp4"></video></figure>
-            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A steaming mug of hot chocolate with whipped cream"><source src="./assets/A_steaming_mug_of_hot_chocolate_with_whipped_cream.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>TIGON</figcaption><img src="./assets/A_steaming_mug_of_hot_chocolate_with_whipped_cream_base.gif" alt="TIGON result: A steaming mug of hot chocolate with whipped cream" loading="lazy"></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained TIGON</figcaption><img src="./assets/A_steaming_mug_of_hot_chocolate_with_whipped_cream.gif" alt="Post-trained TIGON result: A steaming mug of hot chocolate with whipped cream" loading="lazy"></figure>
           </div>
         </article>
         <article class="t3bench-case">
           <h3 class="t3bench-prompt">A vintage porcelain doll with a frilly dress</h3>
           <div class="t3bench-models">
-            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A vintage porcelain doll with a frilly dress"><source src="./assets/A_vintage_porcelain_doll_with_a_frilly_dress_base.mp4" type="video/mp4"></video></figure>
-            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A vintage porcelain doll with a frilly dress"><source src="./assets/A_vintage_porcelain_doll_with_a_frilly_dress.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>TIGON</figcaption><img src="./assets/A_vintage_porcelain_doll_with_a_frilly_dress_base.gif" alt="TIGON result: A vintage porcelain doll with a frilly dress" loading="lazy"></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained TIGON</figcaption><img src="./assets/A_vintage_porcelain_doll_with_a_frilly_dress.gif" alt="Post-trained TIGON result: A vintage porcelain doll with a frilly dress" loading="lazy"></figure>
           </div>
         </article>
         <article class="t3bench-case">
           <h3 class="t3bench-prompt">A well-loved stuffed teddy bear</h3>
           <div class="t3bench-models">
-            <figure class="t3bench-model"><figcaption>Base model</figcaption><video autoplay loop muted playsinline aria-label="Base model video: A well-loved stuffed teddy bear"><source src="./assets/A_well-loved_stuffed_teddy_bear_base.mp4" type="video/mp4"></video></figure>
-            <figure class="t3bench-model"><figcaption>Post-trained model</figcaption><video autoplay loop muted playsinline aria-label="Post-trained model video: A well-loved stuffed teddy bear"><source src="./assets/A_well-loved_stuffed_teddy_bear.mp4" type="video/mp4"></video></figure>
+            <figure class="t3bench-model"><figcaption>TIGON</figcaption><img src="./assets/A_well-loved_stuffed_teddy_bear_base.gif" alt="TIGON result: A well-loved stuffed teddy bear" loading="lazy"></figure>
+            <figure class="t3bench-model"><figcaption>Post-trained TIGON</figcaption><img src="./assets/A_well-loved_stuffed_teddy_bear.gif" alt="Post-trained TIGON result: A well-loved stuffed teddy bear" loading="lazy"></figure>
           </div>
         </article>
       </div>
